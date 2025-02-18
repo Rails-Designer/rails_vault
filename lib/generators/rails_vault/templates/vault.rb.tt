@@ -1,0 +1,5 @@
+class <%= class_name %> < RailsVault::Base
+<%- attributes.each do |attribute| -%>
+  vault_attribute :<%= attribute.name %>, :<%= attribute.type %>
+<%- end -%>
+end
