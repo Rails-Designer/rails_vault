@@ -13,6 +13,8 @@ Simple and easy to add settings, preferences and so on to any model. See [an exa
   </picture>
 </a>
 
+Want to make JavaScript your second-favorite language? 👉 [JavaScript for Rails Developers](https://javascriptforrails.com/)
+
 
 ## Installation
 
