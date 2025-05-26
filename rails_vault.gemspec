@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/Rails-Designer/rails_vault/"
 
-  spec.files = Dir["{bin,app,config,db,lib,public}/**/*", "Rakefile", "README.md", "rails_vault.gemspec", "Gemfile", "Gemfile.lock"]
+  spec.files = Dir["{bin,db,lib}/**/*", "Rakefile", "README.md", "rails_vault.gemspec", "Gemfile", "Gemfile.lock"]
 
   spec.required_ruby_version = ">= 3.1.0"
   spec.add_dependency "rails", ">= 7.2.2"

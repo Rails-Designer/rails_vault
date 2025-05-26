@@ -4,21 +4,26 @@ module RailsVault
 
     belongs_to :resource, polymorphic: true
 
-    def self.inherited(subclass)
-      super
-      scope_name = subclass.name.demodulize.underscore
+    class << self
+      def inherited(subclass)
+        super
 
-      subclass.vault_scope(scope_name)
+        scope_name = subclass.name.demodulize.underscore
+
+        subclass.vault_scope(scope_name)
+      end
+
+      def vault_scope(scope_name)
+        default_scope { where(scope: scope_name) }
+      end
+
+      def vault_attribute(key, *attributes)
+        options = attributes.extract_options!
+
+        store_attribute :payload, key, *attributes, **options
+      end
     end
 
-    def self.vault_scope(scope_name)
-      default_scope { where(scope: scope_name) }
-    end
-
-    def self.vault_attribute(key, *attributes)
-      options = attributes.extract_options!
-
-      store_attribute :payload, key, *attributes, **options
-    end
+    def vault_attributes = payload.keys
   end
 end
