@@ -29,13 +29,13 @@ rails db:migrate
 
 Generate a vault:
 ```bash
-rails generate rails_vault:add MODEL::VAULT [field:type field:type]
+rails generate vault MODEL::VAULT_NAME [field:type field:type]
 ```
 
 Example:
 
 ```bash
-rails generate rails_vault:add User::Preferences \
+rails generate vault User::Preferences \
   time_zone:string \
   datetime_format:string \
   hotkeys_disabled:boolean
@@ -44,6 +44,7 @@ rails generate rails_vault:add User::Preferences \
 This will:
 1. Create a vault class at **app/models/users/preferences.rb**
 2. Add `vault :preferences` to your User model
+
 
 ### Define vault attributes
 
@@ -54,6 +55,7 @@ class User::Preferences < RailsVault::Base
   vault_attribute :hotkeys_disabled, :boolean, default: false
 end
 ```
+
 
 ### Read and write values
 
@@ -68,8 +70,6 @@ user.preferences.update time_zone: "Amsterdam", hotkeys_disabled: true
 user.preferences.time_zone # => "Amsterdam"
 user.preferences.hotkeys_disabled? # => true
 ```
-
-> **Note**: currently **rails_vault** is only tested against PostgreSQL, but PRs for improvements to other databases are appreciated.
 
 
 ## Contributing
