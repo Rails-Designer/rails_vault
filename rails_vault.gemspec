@@ -5,10 +5,10 @@ require_relative "lib/rails_vault/version"
 Gem::Specification.new do |spec|
   spec.name = "rails_vault"
   spec.version = RailsVault::VERSION
-  spec.authors = ["Rails Designer Developers"]
+  spec.authors = ["Rails Designer"]
   spec.email = ["devs@railsdesigner.com"]
-  spec.summary = "Simple and easy to add settings, preferences and so on to any model."
-  spec.description = "Rails Vault is a simple to use gem to add settings and preferences to ActiveRecord models. The settings are stored as JSON in a separate table."
+  spec.summary = "Simple and easy to add settings, preferences and so on to any ActiveRecord model."
+  spec.description = "Rails Vault adds settings and preferences to ActiveRecord models. The settings are stored as JSON in a separate table."
   spec.homepage = "https://railsdesigner.com/rails-vault/"
   spec.license = "MIT"
 
