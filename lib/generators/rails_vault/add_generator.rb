@@ -14,11 +14,30 @@ module RailsVault
       end
 
       def inject_vault_into_model
-        parent_class = class_name.split("::").first
+        has_existing_vault? ?
+          gsub_file(model_path, /^\s*vaults?\s+.+$/, vault_line) :
+          inject_into_class(model_path, class_name.deconstantize) { "#{vault_line}\n" }
+      end
 
-        inject_into_class "app/models/#{class_path.join("/")}.rb", parent_class do
-          "  vault :#{plural_name}\n"
-        end
+      private
+
+      def has_existing_vault?
+        model_content =~ /vaults?\s+/
+      end
+
+      def vault_line
+        vaults = Set.new(model_content[/vaults?\s+(.+)$/, 1]&.scan(/:(\w+)/)&.flatten || []) << plural_name
+        method_name = vaults.many? ? "vaults" : "vault"
+
+        "  #{method_name} #{vaults.map { ":#{_1}" }.join(", ")}"
+      end
+
+      def model_content
+        @model_content ||= File.binread(model_path)
+      end
+
+      def model_path
+        "app/models/#{class_path.join("/")}.rb"
       end
     end
   end
