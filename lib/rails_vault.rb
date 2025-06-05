@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "store_attribute"
+
 require "rails_vault/version"
 require "generators/vault_generator"
 require "rails_vault/engine"

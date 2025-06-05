@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["{bin,db,lib}/**/*", "Rakefile", "README.md", "rails_vault.gemspec", "Gemfile", "Gemfile.lock"]
 
   spec.required_ruby_version = ">= 3.1.0"
+
   spec.add_dependency "rails", ">= 7.2.2"
   spec.add_dependency "store_attribute", ">= 1.3"
 end
