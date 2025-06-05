@@ -74,6 +74,17 @@ user.preferences.vault_attributes # => ["time_zone", "datetime_format", "hotkeys
 ```
 
 
+### Auto-create vaults
+
+Vaults can be created automatically after the parent is created.
+
+```ruby
+class User < ApplicationRecord
+  vault :preferences, auto_create: true
+  # for multiple vaults
+  vaults :preferences, :settings, auto_create_all: true
+end
+```
 
 
 ## Contributing
