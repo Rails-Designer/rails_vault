@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "rails/generators"
 require "rails/generators/named_base"
 
 class VaultGenerator < Rails::Generators::NamedBase

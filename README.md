@@ -69,7 +69,11 @@ user.preferences.update time_zone: "Amsterdam", hotkeys_disabled: true
 
 user.preferences.time_zone # => "Amsterdam"
 user.preferences.hotkeys_disabled? # => true
+
+user.preferences.vault_attributes # => ["time_zone", "datetime_format", "hotkeys_disabled"]
 ```
+
+
 
 
 ## Contributing
