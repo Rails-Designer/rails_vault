@@ -14,7 +14,7 @@ module RailsVault
         )
 
         if auto_create
-          after_create -> {create_vault(association_name, vault_class)}
+          after_create -> { create_vault(association_name, vault_class) }
         end
       end
 
@@ -29,7 +29,7 @@ module RailsVault
       private
 
       def create_vault(association_name, vault_class)
-         return if public_send(association_name).present?
+        return if public_send(association_name).present?
 
         vault_class.constantize.create!(resource: self)
       end
