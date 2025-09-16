@@ -9,5 +9,4 @@ require "rails_vault/base"
 require "rails_vault/vaults"
 
 module RailsVault
-  class Error < StandardError; end
 end
