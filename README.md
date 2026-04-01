@@ -49,7 +49,7 @@ This will:
 ### Define vault attributes
 
 ```ruby
-class User::Preferences < RailsVault::Base
+class User::Preferences < Vault
   vault_attribute :time_zone, :string, default: "UTC"
   vault_attribute :datetime_format, :string, default: "dd-mm-yyyy"
   vault_attribute :hotkeys_disabled, :boolean, default: false

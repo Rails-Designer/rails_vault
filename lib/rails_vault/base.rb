@@ -27,3 +27,5 @@ module RailsVault
     def vault_attributes = payload.keys
   end
 end
+
+Vault = RailsVault::Base
