@@ -1,5 +1,6 @@
 class <%= class_name %> < Vault
-<%- attributes.each do |attribute| -%>
-  vault_attribute :<%= attribute.name %>, :<%= attribute.type %>
+<%- vault_attributes.each do |attribute| -%>
+<%-   default = attribute[:default] ? ", default: #{attribute[:default]}" : "" -%>
+  vault_attribute :<%= attribute[:name] %>, :<%= attribute[:type] %><%= default %>
 <%- end -%>
 end
