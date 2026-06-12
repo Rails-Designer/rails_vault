@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_vault (0.1.0)
+    rails_vault (1.0.0)
       rails (>= 7.2.2)
       store_attribute (>= 1.3)
 
