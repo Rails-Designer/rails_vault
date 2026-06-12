@@ -1,6 +1,6 @@
 # rails_vault
 
-Simple and easy to add settings, preferences and so on to any model. See [an example](#usage).
+Simple and easy to add settings, preferences and so on to any model.
 
 
 **Sponsored By [Rails Designer](https://railsdesigner.com/)**
@@ -12,8 +12,6 @@ Simple and easy to add settings, preferences and so on to any model. See [an exa
     <img alt="Rails Designer" src="https://raw.githubusercontent.com/Rails-Designer/rails_vault/HEAD/.github/logo-light.svg" width="240" style="max-width: 100%;">
   </picture>
 </a>
-
-Want to make JavaScript your second-favorite language? 👉 [JavaScript for Rails Developers](https://javascriptforrails.com/)
 
 
 ## Installation
@@ -73,18 +71,20 @@ end
 
 ### Read and write values
 
+Calling `user.preferences` returns a `RailsVault::View` object that wraps the underlying vault.
 ```ruby
 user = User.first
-user.create_preferences # => User::Preferences Create (6.3ms)  INSERT INTO "rails_vaults" …
-user.preferences.time_zone # => "UTC"
-user.preferences.hotkeys_disabled? # => false
+user.preferences.time_zone  # => "UTC"
+user.preferences.hotkeys_disabled?  # => false
 
 user.preferences.update time_zone: "Amsterdam", hotkeys_disabled: true
 
-user.preferences.time_zone # => "Amsterdam"
-user.preferences.hotkeys_disabled? # => true
+user.preferences.time_zone  # => "Amsterdam"
+user.preferences.hotkeys_disabled?  # => true
 
-user.preferences.vault_attributes # => ["time_zone", "datetime_format", "hotkeys_disabled"]
+user.preferences.vault_attributes  # => ["time_zone", "datetime_format", "hotkeys_disabled"]
+user.preferences.resource  # => user
+user.preferences.save
 ```
 
 

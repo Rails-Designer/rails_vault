@@ -12,22 +12,16 @@ module RailsVault
           class_name: vault_class,
           dependent: :destroy
         )
+
+        define_method(association_name) do
+          super()&.view
+        end
       end
 
       def vaults(*association_names)
         association_names.each do |association_name|
           vault(association_name)
         end
-      end
-    end
-
-    included do
-      private
-
-      def create_vault(association_name, vault_class)
-        return if public_send(association_name).present?
-
-        vault_class.constantize.create!(resource: self)
       end
     end
   end

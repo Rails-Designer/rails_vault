@@ -9,14 +9,15 @@ module RailsVault
       settings = AccountSettings.create!(resource: account, theme: "dark")
 
       assert_respond_to account, :account_settings
-      assert_equal settings, account.account_settings
+      assert_instance_of View, account.account_settings
+      assert_equal settings.id, account.account_settings.vault.id
     end
 
     test "vault association returns vault instance" do
       account = Account.create!(name: "Test Account")
       AccountSettings.create!(resource: account)
 
-      assert_instance_of AccountSettings, account.account_settings
+      assert_instance_of View, account.account_settings
     end
 
     test "vault association returns nil when no vault exists" do

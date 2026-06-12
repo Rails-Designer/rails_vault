@@ -25,6 +25,10 @@ module RailsVault
     end
 
     def vault_attributes = payload.keys
+
+    def view
+      View.new(self)
+    end
   end
 end
 
