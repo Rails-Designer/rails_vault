@@ -9,12 +9,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
         ruby:
-          - '3.4.0'
+          - "3.4"
+
+    env:
+      BUNDLE_PATH_RELATIVE_TO_CWD: true
 
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +26,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+          bundler: default
+          rubygems: latest
       - name: Run Standard
         run: bundle exec standardrb
       - name: Run the default task
