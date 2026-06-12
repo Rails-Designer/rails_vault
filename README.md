@@ -88,19 +88,6 @@ user.preferences.vault_attributes # => ["time_zone", "datetime_format", "hotkeys
 ```
 
 
-### Auto-create vaults
-
-Vaults can be created automatically after the parent is created.
-
-```ruby
-class User < ApplicationRecord
-  vault :preferences, auto_create: true
-  # for multiple vaults
-  vaults :preferences, :settings, auto_create_all: true
-end
-```
-
-
 ## Contributing
 
 This project uses [Standard](https://github.com/testdouble/standard) for formatting Ruby code. Please make sure to run `be standardrb` before submitting pull requests. Run tests via `rails test`.

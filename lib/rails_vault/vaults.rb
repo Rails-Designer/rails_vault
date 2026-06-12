@@ -3,7 +3,7 @@ module RailsVault
     extend ActiveSupport::Concern
 
     class_methods do
-      def vault(association_name, class_name: nil, auto_create: false)
+      def vault(association_name, class_name: nil)
         vault_class = class_name || "#{self}::#{association_name.to_s.camelize}"
 
         has_one(
@@ -12,15 +12,11 @@ module RailsVault
           class_name: vault_class,
           dependent: :destroy
         )
-
-        if auto_create
-          after_create -> { create_vault(association_name, vault_class) }
-        end
       end
 
-      def vaults(*association_names, auto_create_all: false)
+      def vaults(*association_names)
         association_names.each do |association_name|
-          vault(association_name, auto_create: auto_create_all)
+          vault(association_name)
         end
       end
     end
