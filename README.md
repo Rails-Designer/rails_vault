@@ -1,6 +1,6 @@
 # rails_vault
 
-Simple and easy to add settings, preferences and so on to any model. See [an example](#usage).
+Simple and easy to add settings, preferences and so on to any model. 
 
 
 **Sponsored By [Rails Designer](https://railsdesigner.com/)**
