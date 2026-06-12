@@ -11,5 +11,5 @@ end
 group :development, :test do
   gem "minitest"
   gem "debug", "~> 1.9", ">= 1.9.2"
-  gem "sqlite3"
+  gem "sqlite3", "~> 2.0"
 end

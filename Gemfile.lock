@@ -275,6 +275,7 @@ PLATFORMS
   arm-linux-musl
   arm64-darwin
   x86_64-darwin
+  x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
 
@@ -282,7 +283,7 @@ DEPENDENCIES
   debug (~> 1.9, >= 1.9.2)
   minitest
   rails_vault!
-  sqlite3
+  sqlite3 (~> 2.0)
   standard
 
 BUNDLED WITH
