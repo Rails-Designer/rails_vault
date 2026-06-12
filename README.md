@@ -32,8 +32,22 @@ Generate a vault:
 rails generate vault MODEL::VAULT_NAME [field:type field:type]
 ```
 
-Example:
+Use a built-in template:
+```bash
+rails generate vault User::Preferences --template=preferences
+```
 
+Available templates:
+
+| Template | Description |
+|----------|-------------|
+| `preferences` | Timezone, locale, date/time format, UI density, hotkeys |
+| `notification_settings` | Email/push/SMS toggles, frequency, quiet hours |
+| `feature_flags` | Boolean flags for A/B testing and beta features |
+| `email_sequence` | State tracking for drip/welcome email sequences |
+
+
+Example (manual fields):
 ```bash
 rails generate vault User::Preferences \
   time_zone:string \
