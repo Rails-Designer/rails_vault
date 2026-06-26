@@ -21,10 +21,41 @@ module RailsVault
         options = attributes.extract_options!
 
         store_attribute :payload, key, *attributes, **options
+
+        if options.key?(:default)
+          @vault_defaults ||= {}
+
+          @vault_defaults[key.to_s] = options[:default]
+        end
+      end
+
+      def defaults
+        @vault_defaults || {}
       end
     end
 
     def vault_attributes = payload.keys
+
+    def reset(attribute = nil)
+      if attribute
+        key = attribute.to_s
+
+        public_send(:"#{key}=", self.class.defaults[key]) if self.class.defaults.key?(key)
+      else
+        self.class.defaults.each do |key, value|
+          public_send(:"#{key}=", value)
+        end
+      end
+
+      self
+    end
+
+    def reset!(attribute = nil)
+      reset(attribute)
+      save!
+
+      self
+    end
   end
 end
 

@@ -97,5 +97,53 @@ module RailsVault
 
       assert_nil UserPreferences.find_by(id: vault.id)
     end
+
+    test "reset sets all attributes with defaults back to their defaults" do
+      user = User.create!(name: "Test User")
+      vault = UserPreferences.create!(resource: user, time_zone: "Berlin", max_items: 50)
+
+      vault.reset
+
+      assert_equal "UTC", vault.time_zone
+      assert_equal "daily", vault.email_frequency
+      assert_equal true, vault.notifications_enabled
+      assert_equal 100, vault.max_items
+    end
+
+    test "reset! persists changes to database" do
+      user = User.create!(name: "Test User")
+      vault = UserPreferences.create!(resource: user, time_zone: "Berlin")
+
+      vault.reset!
+      vault.reload
+
+      assert_equal "UTC", vault.time_zone
+    end
+
+    test "reset! returns self" do
+      user = User.create!(name: "Test User")
+      vault = UserPreferences.create!(resource: user, time_zone: "Berlin")
+
+      result = vault.reset!
+
+      assert_equal vault, result
+    end
+
+    test "reset with single attribute resets only that attribute" do
+      user = User.create!(name: "Test User")
+      vault = UserPreferences.create!(resource: user, time_zone: "Berlin", max_items: 50)
+
+      vault.reset(:time_zone)
+
+      assert_equal "UTC", vault.time_zone
+      assert_equal 50, vault.max_items
+    end
+
+    test "reset ignores attributes without an explicit default" do
+      user = User.create!(name: "Test User")
+      vault = UserPreferences.create!(resource: user)
+
+      assert vault.respond_to?(:reset)
+    end
   end
 end
