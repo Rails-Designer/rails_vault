@@ -86,6 +86,21 @@ user.preferences.vault_attributes # => ["time_zone", "datetime_format", "hotkeys
 ```
 
 
+### Reset to defaults
+
+```ruby
+user.preferences.time_zone # => "Amsterdam"
+
+user.preferences.reset
+user.preferences.time_zone # => "UTC"
+
+user.preferences.reset(:hotkeys_disabled)
+user.preferences.hotkeys_disabled? # => false
+
+user.preferences.reset! # resets all in memory and persists
+```
+
+
 ## Contributing
 
 This project uses [Standard](https://github.com/testdouble/standard) for formatting Ruby code. Please make sure to run `be standardrb` before submitting pull requests. Run tests via `rails test`.
