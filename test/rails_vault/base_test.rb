@@ -99,3 +99,87 @@ module RailsVault
     end
   end
 end
+
+class LazyDefaultsTest < ActiveSupport::TestCase
+  test "returns new unsaved instance when no record exists (lazy enabled)" do
+    user = LazyUser.create!(name: "Test User")
+
+    features = user.lazy_features
+
+    assert_not_nil features
+    assert_not_predicate features, :persisted?
+    assert_instance_of RailsVault::LazyFeatures, features
+  end
+
+  test "returns nil when no record exists (lazy disabled)" do
+    user = User.create!(name: "Test User")
+
+    assert_nil user.user_preferences
+  end
+
+  test "reads defaults without DB query" do
+    user = LazyUser.create!(name: "Test User")
+
+    features = user.lazy_features
+
+    assert_equal false, features.beta_access
+    assert_equal false, features.dark_mode
+    assert_equal "player", features.nickname
+    assert_equal false, features.beta_access?
+  end
+
+  test "creates DB record on first save" do
+    user = LazyUser.create!(name: "Test User")
+
+    features = user.lazy_features
+    features.dark_mode = true
+    features.save!
+
+    assert_predicate features, :persisted?
+    assert_equal true, features.dark_mode
+
+    reloaded = RailsVault::LazyFeatures.find(features.id)
+    assert_equal true, reloaded.dark_mode
+  end
+
+  test "reads defaults without creating a DB record" do
+    user = LazyUser.create!(name: "Test User")
+
+    user.lazy_features.beta_access
+    user.lazy_features.dark_mode
+    user.lazy_features.nickname
+
+    assert_equal 0, RailsVault::LazyFeatures.count
+  end
+
+  test "lazy vault instance is cached across calls" do
+    user = LazyUser.create!(name: "Test User")
+
+    first_call = user.lazy_features
+    second_call = user.lazy_features
+
+    assert_same first_call, second_call
+  end
+
+  test "persisted lazy vault is cached across calls" do
+    user = LazyUser.create!(name: "Test User")
+
+    features = user.lazy_features
+    features.dark_mode = true
+    features.save!
+
+    assert_same features, user.lazy_features
+  end
+
+  test "returns persisted record for new parent instance" do
+    user = LazyUser.create!(name: "Test User")
+
+    user.lazy_features.update!(dark_mode: true)
+
+    same_user = LazyUser.find(user.id)
+    reloaded = same_user.lazy_features
+
+    assert_predicate reloaded, :persisted?
+    assert_equal true, reloaded.dark_mode
+  end
+end
