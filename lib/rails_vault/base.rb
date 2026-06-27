@@ -8,9 +8,12 @@ module RailsVault
       def inherited(subclass)
         super
 
-        scope_name = subclass.name.demodulize.underscore
+        subclass.instance_variable_set(:@vault_defaults, {})
+        subclass.instance_variable_set(:@lazy_defaults_enabled, false)
 
-        subclass.vault_scope(scope_name)
+        if subclass.name
+          subclass.vault_scope(subclass.name.demodulize.underscore)
+        end
       end
 
       def vault_scope(scope_name)
@@ -20,8 +23,18 @@ module RailsVault
       def vault_attribute(key, *attributes)
         options = attributes.extract_options!
 
+        @vault_defaults[key.to_s] = options[:default]
+
         store_attribute :payload, key, *attributes, **options
       end
+
+      def lazy_defaults
+        @lazy_defaults_enabled = true
+      end
+
+      def lazy? = @lazy_defaults_enabled
+
+      def defaults = @vault_defaults
     end
 
     def vault_attributes = payload.keys

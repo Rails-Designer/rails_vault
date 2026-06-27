@@ -56,8 +56,24 @@ module RailsVault
   end
 end
 
+module RailsVault
+  class LazyFeatures < Base
+    lazy_defaults
+
+    vault_attribute :beta_access, :boolean, default: false
+    vault_attribute :dark_mode, :boolean, default: false
+    vault_attribute :nickname, :string, default: "player"
+  end
+end
+
 class User < ActiveRecord::Base
   vault :user_preferences, class_name: "RailsVault::UserPreferences"
+end
+
+class LazyUser < ActiveRecord::Base
+  self.table_name = "users"
+
+  vault :lazy_features, class_name: "RailsVault::LazyFeatures"
 end
 
 class Account < ActiveRecord::Base

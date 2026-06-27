@@ -4,14 +4,25 @@ module RailsVault
 
     class_methods do
       def vault(association_name, class_name: nil)
-        vault_class = class_name || "#{self}::#{association_name.to_s.camelize}"
+        vault_class_name = class_name || "#{self}::#{association_name.to_s.camelize}"
+        vault_class = vault_class_name.safe_constantize
 
         has_one(
           association_name,
           as: :resource,
-          class_name: vault_class,
+          class_name: vault_class_name,
           dependent: :destroy
         )
+
+        if vault_class&.lazy?
+          define_method(association_name) do
+            instance_variable_get(:"@#{association_name}") ||
+              instance_variable_set(
+                :"@#{association_name}",
+                association(association_name).scope.first || vault_class.new(resource: self)
+              )
+          end
+        end
       end
 
       def vaults(*association_names)
