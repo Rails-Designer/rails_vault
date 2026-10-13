@@ -37,7 +37,7 @@ class VaultGenerator < Rails::Generators::NamedBase
   end
 
   def vault_line
-    vaults = Set.new(model_content[/vaults?\s+(.+)$/, 1]&.scan(/:(\w+)/)&.flatten || []) << plural_name
+    vaults = Set.new(model_content[/vaults?\s+(.+)$/, 1]&.scan(/:(\w+)/)&.flatten || []) << file_name
     method_name = vaults.many? ? "vaults" : "vault"
 
     "  #{method_name} #{vaults.map { ":#{_1}" }.join(", ")}"
